@@ -3,7 +3,7 @@ name "vagrant-test-box"
 
 default_attributes(
     "build_essential" => {
-        "compiletime" => true
+        "compile_time" => true
     }
 )
 
@@ -21,11 +21,13 @@ override_attributes(
     "zendserver" => {
     	"version" => '6.3',
     	"phpversion" => '5.3',
+    	"ordernumber" => '',
+    	"licensekey" => '',
     	"production" => 'false',
     	"apikeyname" => 'admin2',
     	"apikeysecret" => '98167463cc69d2915360609b94404ee2749f33f19d8b39d8671ab4c29321a535',
     	"adminpassword" => 'advantage',
-    	"adminemail" => 'davem@aspin.co.uk',
+#    	"adminemail" => 'davem@aspin.co.uk',
     	"dbhost" => '127.0.0.1',
     	"dbusername" => 'root',
     	"dbpassword" => 'root'
@@ -33,8 +35,8 @@ override_attributes(
 )
 
 run_list(
-# 	"recipe[yum]",
 	"recipe[apt]",	
+  "recipe[yum]",	
 	"recipe[build-essential]",
 	"recipe[vim]",
 	"recipe[mysql]",
