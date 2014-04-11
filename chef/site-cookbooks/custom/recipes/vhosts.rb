@@ -60,3 +60,11 @@ if platform_family?("rhel")
 	end	
 
 end
+
+ruby_block "Appending to hosts file" do
+	block do
+		rc = Chef::Util::FileEdit.new("/etc/hosts")
+		rc.insert_line_if_no_match("/is3.dev/", "127.0.0.1 is3.dev")
+		rc.write_file
+	end
+end		
