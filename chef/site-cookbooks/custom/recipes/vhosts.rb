@@ -55,6 +55,18 @@ if platform_family?("rhel")
 		end
 	end	
 
+	execute "update apache2 log folder permissions" do
+		command "sudo chmod +x /var/log/httpd"
+	end
+
+	execute "update apache2 log file permissions" do
+		command "sudo chmod 644 /var/log/httpd/error_log /var/log/httpd/access_log"
+	end
+	
+	execute "update zend server log file permissions" do
+		command "sudo chmod -R 777 /usr/local/zend/tmp"
+	end	
+
 	service "httpd" do
 		action :restart
 	end	
