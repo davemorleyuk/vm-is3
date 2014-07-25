@@ -47,13 +47,26 @@ if platform_family?("rhel")
 		action :install
 	end
 	
+	# Install gettext
+	package "gettext" do
+		action :install
+	end	
+	
 	ruby_block "Appending to httpd config file" do
 		block do
 			rc = Chef::Util::FileEdit.new("/etc/sysconfig/httpd")
-			rc.insert_line_if_no_match("/HTTPD=\/usr\/sbin\/httpd.itk\/", "HTTPD=/usr/sbin/httpd.itk")
+			rc.insert_line_if_no_match("/HTTPD=\/usr\/sbin\/httpd\.itk/", "HTTPD=/usr/sbin/httpd.itk")
 			rc.write_file
 		end
 	end	
+	
+	ruby_block "Disabling status module in httpd config" do
+		block do
+			rc2 = Chef::Util::FileEdit.new("/etc/httpd/conf/httpd.conf")
+			rc2.search_file_replace(/LoadModule status_module/, '#LoadModule status_module')
+			rc2.write_file
+		end
+	end		
 
 	execute "update apache2 log folder permissions" do
 		command "sudo chmod +x /var/log/httpd"
@@ -72,11 +85,3 @@ if platform_family?("rhel")
 	end	
 
 end
-
-ruby_block "Appending to hosts file" do
-	block do
-		rc = Chef::Util::FileEdit.new("/etc/hosts")
-		rc.insert_line_if_no_match("/is3.dev/", "127.0.0.1 is3.dev")
-		rc.write_file
-	end
-end		

@@ -14,13 +14,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
 #  config.vm.box = "chef/debian-7.4"
 #  config.vm.box = "chef/centos-6.5"
-#	config.vm.box = "rosio/centos6-x32-chef"  
-#	config.vm.box = "hashicorp/precise64"
+#	 config.vm.box = "rosio/centos6-x32-chef"  
+#  config.vm.box = "hashicorp/precise64"
+#  config.vm.box = "xanagi/centos-6.5-chef"	
 	config.vm.box = "mobileoverlord/centos-6.5"
-# config.vm.box = "xanagi/centos-6.5-chef"	
+
+#config.vm.box = "developervms/centos7-64"
+#config.vm.box = "occ-corp/centos70"
+
+config.vm.hostname = "is3.dev"
   
 	config.vm.network :private_network, ip: "192.168.56.3"
   config.vm.network "forwarded_port", guest: 3306, host: 33003
+  config.vm.network "forwarded_port", guest: 80, host: 8080
 	
 #  config.vm.provider :virtualbox do |vb|
 #    vb.customize ["modifyvm", :id, "--memory", "1024"]

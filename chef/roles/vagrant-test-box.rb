@@ -19,8 +19,10 @@ override_attributes(
 #        "bind_address" => '0.0.0.0'
     },
     "zendserver" => {
-    	"version" => '6.3',
-    	"phpversion" => '5.3',
+#    	"version" => '6.3',
+#    	"phpversion" => '5.3',
+    	"version" => '7.0',
+    	"phpversion" => '5.4',
     	"ordernumber" => '',
     	"licensekey" => '',
     	"production" => 'false',
