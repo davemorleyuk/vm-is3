@@ -67,6 +67,17 @@ if platform_family?("rhel")
 			rc2.write_file
 		end
 	end		
+	
+	# Disable SendFile option in apache which causes truncation of css/js files
+	# when editing files.
+	
+	ruby_block "Disabling EnableSendfile httpd config" do
+		block do
+			rc2 = Chef::Util::FileEdit.new("/etc/httpd/conf/httpd.conf")
+			rc2.search_file_replace(/#EnableSendfile off/, 'EnableSendfile off')
+			rc2.write_file
+		end
+	end			
 
 	execute "update apache2 log folder permissions" do
 		command "sudo chmod +x /var/log/httpd"
